@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StockDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StockDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="StockDataModelStoreContainer">
           <EntitySet Name="StockPick" EntityType="StockDataModel.Store.StockPick" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="StockPickPerformance" EntityType="StockDataModel.Store.StockPickPerformance" store:Type="Tables" Schema="dbo" />
@@ -37,14 +37,16 @@
           <Property Name="Symbol" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="PickDate" Type="smalldatetime" Nullable="false" />
           <Property Name="PickType" Type="int" Nullable="false" />
+          <Property Name="PickQuote" Type="money" />
           <Property Name="PrevBigVolumeRatio" Type="float" />
           <Property Name="RatioVSHigh" Type="float" />
           <Property Name="RatioVSLow" Type="float" />
-          <Property Name="M1Perf" Type="float" />
-          <Property Name="M3Perf" Type="float" />
-          <Property Name="M6Perf" Type="float" />
-          <Property Name="M12Perf" Type="float" />
-          <Property Name="M18Perf" Type="float" />
+          <Property Name="M3High" Type="money" />
+          <Property Name="M3Low" Type="money" />
+          <Property Name="M6High" Type="money" />
+          <Property Name="M6Low" Type="money" />
+          <Property Name="M12High" Type="money" />
+          <Property Name="M12Low" Type="money" />
         </EntityType>
         <EntityType Name="StockQuote">
           <Key>
@@ -103,8 +105,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StockDataModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -144,11 +145,13 @@
           <Property Name="PrevBigVolumeRatio" Type="Double" />
           <Property Name="RatioVSHigh" Type="Double" />
           <Property Name="RatioVSLow" Type="Double" />
-          <Property Name="M1Perf" Type="Double" />
-          <Property Name="M3Perf" Type="Double" />
-          <Property Name="M6Perf" Type="Double" />
-          <Property Name="M12Perf" Type="Double" />
-          <Property Name="M18Perf" Type="Double" />
+          <Property Type="Decimal" Name="PickQuote" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="M3High" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="M3Low" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="M6High" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="M6Low" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="M12High" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="M12Low" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="StockQuote">
           <Key>
@@ -229,18 +232,20 @@
           <EntitySetMapping Name="StockPickPerformances">
             <EntityTypeMapping TypeName="StockDataModel.StockPickPerformance">
               <MappingFragment StoreEntitySet="StockPickPerformance">
+                <ScalarProperty Name="M12Low" ColumnName="M12Low" />
+                <ScalarProperty Name="M12High" ColumnName="M12High" />
+                <ScalarProperty Name="M6Low" ColumnName="M6Low" />
+                <ScalarProperty Name="M6High" ColumnName="M6High" />
+                <ScalarProperty Name="M3Low" ColumnName="M3Low" />
+                <ScalarProperty Name="M3High" ColumnName="M3High" />
+                <ScalarProperty Name="PickQuote" ColumnName="PickQuote" />
                 <ScalarProperty Name="Symbol" ColumnName="Symbol" />
                 <ScalarProperty Name="PickDate" ColumnName="PickDate" />
                 <ScalarProperty Name="PickType" ColumnName="PickType" />
                 <ScalarProperty Name="PrevBigVolumeRatio" ColumnName="PrevBigVolumeRatio" />
                 <ScalarProperty Name="RatioVSHigh" ColumnName="RatioVSHigh" />
                 <ScalarProperty Name="RatioVSLow" ColumnName="RatioVSLow" />
-                <ScalarProperty Name="M1Perf" ColumnName="M1Perf" />
-                <ScalarProperty Name="M3Perf" ColumnName="M3Perf" />
-                <ScalarProperty Name="M6Perf" ColumnName="M6Perf" />
-                <ScalarProperty Name="M12Perf" ColumnName="M12Perf" />
-                <ScalarProperty Name="M18Perf" ColumnName="M18Perf" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StockQuotes">

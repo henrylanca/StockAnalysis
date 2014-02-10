@@ -20,10 +20,12 @@ namespace PickPerformanceCheck
         public Nullable<double> PrevBigVolumeRatio { get; set; }
         public Nullable<double> RatioVSHigh { get; set; }
         public Nullable<double> RatioVSLow { get; set; }
-        public Nullable<double> M1Perf { get; set; }
-        public Nullable<double> M3Perf { get; set; }
-        public Nullable<double> M6Perf { get; set; }
-        public Nullable<double> M12Perf { get; set; }
-        public Nullable<double> M18Perf { get; set; }
+        public Nullable<decimal> PickQuote { get; set; }
+        public Nullable<decimal> M3High { get; set; }
+        public Nullable<decimal> M3Low { get; set; }
+        public Nullable<decimal> M6High { get; set; }
+        public Nullable<decimal> M6Low { get; set; }
+        public Nullable<decimal> M12High { get; set; }
+        public Nullable<decimal> M12Low { get; set; }
     }
 }
